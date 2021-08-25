@@ -61,6 +61,7 @@ const Login = () => {
               placeholder='Password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete='on'
               required
             />
             <label htmlFor='floatingPassword'>Password</label>

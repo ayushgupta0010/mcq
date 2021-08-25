@@ -70,6 +70,7 @@ const Signup = () => {
               name='password'
               value={user.password}
               onChange={handleChange}
+              autoComplete='on'
               required
             />
             <label htmlFor='floatingPassword'>Password</label>
@@ -78,32 +79,32 @@ const Signup = () => {
             <input
               type='text'
               className='form-control'
-              id='floatingInput'
+              id='floatingFirstName'
               placeholder='First Name'
               name='first_name'
               value={user.first_name}
               onChange={handleChange}
               required
             />
-            <label htmlFor='floatingInput'>First Name</label>
+            <label htmlFor='floatingFirstName'>First Name</label>
           </div>
           <div className='form-floating mb-3 border-dark w-50'>
             <input
               type='text'
               className='form-control'
-              id='floatingInput'
+              id='floatingLastName'
               placeholder='Last Name'
               name='last_name'
               value={user.last_name}
               onChange={handleChange}
               required
             />
-            <label htmlFor='floatingInput'>Last Name</label>
+            <label htmlFor='floatingLastName'>Last Name</label>
           </div>
           <div className='form-floating mb-3 border-dark w-50'>
             <select
               className='form-select'
-              id='floatingSelect'
+              id='floatingRole'
               name='role'
               value={user.role}
               onChange={handleChange}
@@ -114,22 +115,20 @@ const Signup = () => {
               <option value='student'>Student</option>
               <option value='teacher'>Teacher</option>
             </select>
-            <label htmlFor='floatingSelect'>Account type</label>
+            <label htmlFor='floatingRole'>Account type</label>
           </div>
           {user.role === "student" && (
             <div className='form-floating mb-3 border-dark w-50'>
               <select
                 className='form-select'
-                id='floatingSelect'
+                id='floatingClass'
                 name='cls'
                 value={user.cls}
                 onChange={handleChange}
                 required>
                 <ClassList />
               </select>
-              <label
-                htmlFor='floatingSelect'
-                className='text-skyblue fw-bolder'>
+              <label htmlFor='floatingClass' className='text-skyblue fw-bolder'>
                 Class
               </label>
             </div>
