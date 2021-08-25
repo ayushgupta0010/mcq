@@ -24,11 +24,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # third party apps
     'corsheaders',
     'rest_framework',
-
-    'mcq'
+    # my apps
+    'user',
+    'mcq',
 ]
 
 MIDDLEWARE = [
@@ -112,6 +113,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'user.User'
 
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%d/%m/%Y %H:%M:%S",
