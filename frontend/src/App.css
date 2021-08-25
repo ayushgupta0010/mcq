@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Poiret One';
+    src: url('./utils/fonts/Poiret_One/PoiretOne-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('./utils/fonts/Nunito/Nunito-Light.ttf');
+}
+
+* {
+    font-family: 'Nunito';
+}
+
+a {
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+body {
+    background: #191919 !important;
+}
+
+.dropdown-item:hover {
+    background-color: #0372ad !important;
+}
+
+.styledFont {
+    font-family: 'Poiret One';
+    font-weight: 600;
+}

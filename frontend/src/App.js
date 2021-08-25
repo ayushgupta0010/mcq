@@ -3,11 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import Main from "./components/MainComponent";
 
 const App = () => (
-  <BrowserRouter>
-    <Switch></Switch>
-  </BrowserRouter>
+  <Provider store={store}>
+    <Main />
+  </Provider>
 );
 export default App;
