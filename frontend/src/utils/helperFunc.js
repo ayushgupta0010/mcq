@@ -7,5 +7,4 @@ export const getAnswer = (ans) =>
 export const postAnswer = async (user, question, answer, marks) =>
   await axiosIntercepted
     .post(ANSWER.CREATE_URL, { user, question, answer, marks })
-    .then((response) => response.data)
-    .catch((error) => console.log(error.response));
+    .then((response) => response.data);
