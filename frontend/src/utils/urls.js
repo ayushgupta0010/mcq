@@ -4,10 +4,13 @@ export const WEBSITE = {
 };
 
 export const USER = {
-  DETAIL_URL: WEBSITE.BACKEND_URL + "user/detail/:username",
   LOGIN_URL: WEBSITE.BACKEND_URL + "user/login",
   SIGNUP_URL: WEBSITE.BACKEND_URL + "user/signup",
   REFRESH_TOKEN_URL: WEBSITE.BACKEND_URL + "user/refresh_token",
+
+  DETAIL_URL: WEBSITE.BACKEND_URL + "user/detail/:username",
+  VERIFY_URL: WEBSITE.BACKEND_URL + "user/verify/:username",
+  LIST_UNVERIFIED: WEBSITE.BACKEND_URL + "user/list/unverified",
 };
 
 export const QUESTION = {
