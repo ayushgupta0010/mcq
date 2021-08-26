@@ -1,16 +1,18 @@
 import * as actionTypes from "../action/types";
 
 const username = localStorage.getItem("username");
+const role = localStorage.getItem("role");
+const is_verified = localStorage.getItem("is_verified") === "true";
+
 const defaultDict = {
   isLoggedIn: false,
   username: "",
-  name: "",
   role: "",
-  class: "",
+  is_verified: null,
 };
 
 const initialState = username
-  ? { ...defaultDict, isLoggedIn: true, username }
+  ? { ...defaultDict, isLoggedIn: true, username, role, is_verified }
   : defaultDict;
 
 const reducer = (state = initialState, action) => {
@@ -20,15 +22,20 @@ const reducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         username: action.payload.username,
-        name: action.payload.name,
         role: action.payload.role,
-        class: action.payload.class,
+        is_verified: action.payload.is_verified,
       };
 
     case actionTypes.LOGOUT:
       return {
         ...state,
         ...defaultDict,
+      };
+
+    case actionTypes.UPDATE_IS_VERIFIED:
+      return {
+        ...state,
+        is_verified: action.payload.is_verified,
       };
 
     default:

@@ -5,9 +5,8 @@ export const login = (user) => {
     type: actionTypes.LOGIN,
     payload: {
       username: user.username,
-      name: user.name,
       role: user.role,
-      class: user.class,
+      is_verified: user.is_verified,
     },
   };
 };
@@ -15,5 +14,12 @@ export const login = (user) => {
 export const logout = () => {
   return {
     type: actionTypes.LOGOUT,
+  };
+};
+
+export const updateIsVerified = (is_verified) => {
+  return {
+    type: actionTypes.UPDATE_IS_VERIFIED,
+    payload: { is_verified },
   };
 };
