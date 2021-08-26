@@ -20,10 +20,11 @@ const LoggedIn = () => {
       </button>
       <ul className='dropdown-menu dropdown-menu-end bg-black'>
         <li>
-          <span className='dropdown-header styledFont fw-bolder fs-5'>
+          <span className='dropdown-header styledFont fw-bolder fs-5 py-0'>
             {username}
           </span>
         </li>
+        <hr className='bg-secondary my-1' />
         {role === "teacher" && (
           <>
             <li>
@@ -43,6 +44,7 @@ const LoggedIn = () => {
             My Answers
           </Link>
         </li>
+        <hr className='bg-secondary my-1' />
         <li>
           <Link
             className='dropdown-item text-light'
