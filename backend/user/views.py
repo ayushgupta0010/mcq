@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status
-from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -36,6 +36,8 @@ class VerifyView(APIView):
         return Response('Verified', status=status.HTTP_200_OK)
 
 
-class UnverifiedListView(ListAPIView):
-    serializer_class = UserSerializer
-    queryset = User.objects.filter(isVerified=False)
+class UnverifiedListView(APIView):
+    def get(self, request):
+        users = User.objects.filter(isVerified=False)
+        users_list = [user.username for user in users]
+        return Response(users_list, status=status.HTTP_200_OK)
