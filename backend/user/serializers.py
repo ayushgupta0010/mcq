@@ -12,9 +12,8 @@ class LoginSerializer(TokenObtainPairSerializer):
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
         data['username'] = self.user.username
-        data['name'] = self.user.get_full_name()
         data['role'] = self.user.role
-        data['class'] = self.user.cls
+        data['is_verified'] = self.user.is_verified
         return data
 
 
@@ -23,7 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'first_name', 'last_name', 'role', 'cls']
+        fields = ['username', 'password', 'role', 'is_verified']
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
