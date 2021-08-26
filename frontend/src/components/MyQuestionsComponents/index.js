@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { QUESTION } from "../../utils/urls";
 import axiosIntercepted from "../../utils/axiosIntercepted";
 import Question from "../UtilityComponents/Question";
 
 const MyQuestions = () => {
-  const { username } = useSelector((state) => state.auth);
+  const { isLoggedIn, username, role, is_verified } = useSelector(
+    (state) => state.auth
+  );
 
   const [questionsList, setQuestionsList] = useState([]);
 
+  const history = useHistory();
+
   useEffect(() => {
-    document.title = "My Questions";
-    axiosIntercepted
-      .get(QUESTION.LIST_BY_URL, { urlParams: { username } })
-      .then((response) => setQuestionsList(response.data))
-      .catch((error) => error);
-  }, [username]);
+    if (!isLoggedIn) {
+      history.push("/login");
+    } else if (is_verified === false) {
+      history.push("/unverified");
+    } else if (isLoggedIn && role !== "teacher") {
+      history.push("/forbidden");
+    } else {
+      document.title = "My Questions";
+      axiosIntercepted
+        .get(QUESTION.LIST_BY_URL, { urlParams: { username } })
+        .then((response) => setQuestionsList(response.data))
+        .catch((error) => error);
+    }
+  }, [history, isLoggedIn, is_verified, role, username]);
 
   return (
     <div className='container'>
@@ -24,6 +37,11 @@ const MyQuestions = () => {
           <Question question={x} />
         </div>
       ))}
+      {questionsList.length === 0 && (
+        <div className='text-center mt-5'>
+          <p className='text-light'>No questions uploaded</p>
+        </div>
+      )}
     </div>
   );
 };

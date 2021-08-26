@@ -15,7 +15,9 @@ import Signup from "../AuthComponents/Signup";
 import Unverified from "../UtilityComponents/Unverified";
 
 const Main = () => {
-  const { isLoggedIn, username } = useSelector((state) => state.auth);
+  const { isLoggedIn, username, is_verified } = useSelector(
+    (state) => state.auth
+  );
 
   const dispatch = useDispatch();
 
@@ -25,7 +27,7 @@ const Main = () => {
 
   return (
     <BrowserRouter>
-      <Navbar />
+      {is_verified === true && <Navbar />}
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/forbidden' component={Forbidden} />

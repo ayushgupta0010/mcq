@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { ANSWER } from "../../utils/urls";
 import axiosIntercepted from "../../utils/axiosIntercepted";
 import Answer from "../UtilityComponents/Answer";
 
 const MyAnswers = () => {
-  const { username } = useSelector((state) => state.auth);
+  const { isLoggedIn, username, is_verified } = useSelector(
+    (state) => state.auth
+  );
 
   const [answersList, setAnswersList] = useState([]);
 
+  const history = useHistory();
+
   useEffect(() => {
-    document.title = "My Answers";
-    axiosIntercepted
-      .get(ANSWER.LIST_URL, { urlParams: { username } })
-      .then((response) => setAnswersList(response.data))
-      .catch((error) => error);
-  }, [username]);
+    if (!isLoggedIn) {
+      history.push("/login");
+    } else if (is_verified === false) {
+      history.push("/unverified");
+    } else {
+      document.title = "My Answers";
+      axiosIntercepted
+        .get(ANSWER.LIST_URL, { urlParams: { username } })
+        .then((response) => setAnswersList(response.data))
+        .catch((error) => error);
+    }
+  }, [history, isLoggedIn, is_verified, username]);
 
   return (
     <div className='container'>
@@ -24,6 +35,11 @@ const MyAnswers = () => {
           <Answer answer={x} />
         </div>
       ))}
+      {answersList.length === 0 && (
+        <div className='text-center mt-5'>
+          <p className='text-light'>You haven't answered any question</p>
+        </div>
+      )}
     </div>
   );
 };
