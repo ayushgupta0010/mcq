@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ANSWER } from "../../utils/urls";
 import axiosIntercepted from "../../utils/axiosIntercepted";
-import Question from "../UtilityComponents/Question";
+import Answer from "../UtilityComponents/Answer";
 
 const MyAnswers = () => {
   const { username } = useSelector((state) => state.auth);
@@ -20,15 +20,7 @@ const MyAnswers = () => {
     <div className='container'>
       {answersList.map((x, i) => (
         <div className='bg-black my-4 p-3 rounded' key={i}>
-          <Question question={x.question} />
-          <div className='container'>
-            <p className='text-skyblue m-0 mb-1'>
-              My answer: <span className='text-light'>{x.answer}</span>
-            </p>
-            <p className='text-skyblue'>
-              Marks: <span className='text-light'>{x.marks}</span>
-            </p>
-          </div>
+          <Answer answer={x} />
         </div>
       ))}
     </div>
