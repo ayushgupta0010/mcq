@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { TRY_ACTIONS } from "../../redux/action";
 
 const LoggedIn = () => {
-  const { username } = useSelector((state) => state.auth);
+  const { username, role } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -23,6 +23,25 @@ const LoggedIn = () => {
           <span className='dropdown-header styledFont fw-bolder fs-5'>
             {username}
           </span>
+        </li>
+        {role === "teacher" && (
+          <>
+            <li>
+              <Link className='dropdown-item text-light' to='/post'>
+                Post Questions
+              </Link>
+            </li>
+            <li>
+              <Link className='dropdown-item text-light' to='/my-questions'>
+                My Questions
+              </Link>
+            </li>
+          </>
+        )}
+        <li>
+          <Link className='dropdown-item text-light' to='/my-answers'>
+            My Answers
+          </Link>
         </li>
         <li>
           <Link
