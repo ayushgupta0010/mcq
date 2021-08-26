@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-const Unverified = () => {
+const AccountUnverified = () => {
   const { isLoggedIn, isVerified } = useSelector((state) => state.auth);
 
   const history = useHistory();
@@ -29,4 +29,4 @@ const Unverified = () => {
   );
 };
 
-export default Unverified;
+export default AccountUnverified;

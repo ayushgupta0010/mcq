@@ -47,6 +47,16 @@ const LoggedIn = () => {
               </Link>
             </li>
             <hr className='bg-secondary my-1' />
+            {role === "teacher" && (
+              <>
+                <li>
+                  <Link className='dropdown-item text-light' to='/unverified'>
+                    Unverified users
+                  </Link>
+                </li>
+                <hr className='bg-secondary my-1' />
+              </>
+            )}
             <li>
               <Link
                 className='dropdown-item text-light'

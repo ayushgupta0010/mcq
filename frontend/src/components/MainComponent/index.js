@@ -12,7 +12,8 @@ import Navbar from "../NavbarComponents";
 import PageNotFound404 from "../UtilityComponents/PageNotFound404";
 import PostQuestion from "../PostQuestion";
 import Signup from "../AuthComponents/Signup";
-import Unverified from "../UtilityComponents/Unverified";
+import AccountUnverified from "../UtilityComponents/AccountUnverified";
+import UnverifiedUsersList from "../UnverifiedUsersListComponents";
 
 const Main = () => {
   const { isLoggedIn, username } = useSelector((state) => state.auth);
@@ -28,6 +29,7 @@ const Main = () => {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route exact path='/account-unverified' component={AccountUnverified} />
         <Route exact path='/forbidden' component={Forbidden} />
         <Route exact path='/force_logout' component={ForceLogout} />
         <Route exact path='/login' component={Login} />
@@ -35,7 +37,7 @@ const Main = () => {
         <Route exact path='/my-questions' component={MyQuestions} />
         <Route exact path='/post' component={PostQuestion} />
         <Route exact path='/signup' component={Signup} />
-        <Route exact path='/unverified' component={Unverified} />
+        <Route exact path='/unverified' component={UnverifiedUsersList} />
         <Route path='*' component={PageNotFound404} />
       </Switch>
     </BrowserRouter>

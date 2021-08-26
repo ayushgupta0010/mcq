@@ -18,7 +18,7 @@ const MyAnswers = () => {
     if (!isLoggedIn) {
       history.push("/login");
     } else if (isVerified === false) {
-      history.push("/unverified");
+      history.push("/account-unverified");
     } else {
       document.title = "My Answers";
       axiosIntercepted

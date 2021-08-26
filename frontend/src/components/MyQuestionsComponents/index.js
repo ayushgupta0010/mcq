@@ -18,7 +18,7 @@ const MyQuestions = () => {
     if (!isLoggedIn) {
       history.push("/login");
     } else if (isVerified === false) {
-      history.push("/unverified");
+      history.push("/account-unverified");
     } else if (isLoggedIn && role !== "teacher") {
       history.push("/forbidden");
     } else {
