@@ -22,7 +22,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(USER.SIGNUP_URL, { ...user, is_verified: user.role === "student" })
+      .post(USER.SIGNUP_URL, user)
       .then((response) => history.push("/login"))
       .catch((error) => setMessage("Username already exists"));
   };
