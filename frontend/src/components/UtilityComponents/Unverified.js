@@ -3,15 +3,15 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 const Unverified = () => {
-  const { isLoggedIn, is_verified } = useSelector((state) => state.auth);
+  const { isLoggedIn, isVerified } = useSelector((state) => state.auth);
 
   const history = useHistory();
 
   useEffect(() => {
     if (!isLoggedIn) history.push("/login");
-    else if (is_verified === true) history.push("/");
+    else if (isVerified === true) history.push("/");
     else document.title = "Account Unverified";
-  }, [history, isLoggedIn, is_verified]);
+  }, [history, isLoggedIn, isVerified]);
 
   return (
     <div className='container'>

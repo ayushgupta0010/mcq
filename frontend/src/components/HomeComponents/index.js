@@ -10,7 +10,7 @@ import OneWord from "./OneWord";
 import TrueFalse from "./TrueFalse";
 
 const Home = () => {
-  const { isLoggedIn, username, is_verified } = useSelector(
+  const { isLoggedIn, username, isVerified } = useSelector(
     (state) => state.auth
   );
 
@@ -21,7 +21,7 @@ const Home = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       history.push("/login");
-    } else if (is_verified === false) {
+    } else if (isVerified === false) {
       history.push("/unverified");
     } else {
       document.title = "Home";
@@ -30,7 +30,7 @@ const Home = () => {
         .then((response) => setQuestionsList(response.data))
         .catch((error) => error);
     }
-  }, [history, isLoggedIn, is_verified, username]);
+  }, [history, isLoggedIn, isVerified, username]);
 
   return (
     <div className='container'>

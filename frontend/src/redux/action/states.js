@@ -6,7 +6,7 @@ export const login = (user) => {
     payload: {
       username: user.username,
       role: user.role,
-      is_verified: user.is_verified,
+      isVerified: user.is_verified,
     },
   };
 };
@@ -17,9 +17,9 @@ export const logout = () => {
   };
 };
 
-export const updateIsVerified = (is_verified) => {
+export const updateIsVerified = (isVerified) => {
   return {
     type: actionTypes.UPDATE_IS_VERIFIED,
-    payload: { is_verified },
+    payload: { isVerified },
   };
 };

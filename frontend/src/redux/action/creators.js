@@ -3,12 +3,12 @@ import axiosIntercepted from "../../utils/axiosIntercepted";
 import * as actionStates from "./states";
 
 export const getUserDetail = (username) => (dispatch) => {
-  const is_verified = localStorage.getItem("is_verified") === "true";
-  if (!is_verified) {
+  const isVerified = localStorage.getItem("isVerified") === "true";
+  if (!isVerified) {
     axiosIntercepted
       .get(USER.DETAIL_URL, { urlParams: { username } })
       .then((response) => {
-        localStorage.setItem("is_verified", response.data.is_verified);
+        localStorage.setItem("isVerified", response.data.is_verified);
         dispatch(actionStates.updateIsVerified(response.data.is_verified));
       })
       .catch((error) => error);
@@ -26,7 +26,7 @@ export const tryLogin = (username, password) => async (dispatch) => {
         localStorage.setItem("refreshToken", response.data.refresh);
         localStorage.setItem("username", response.data.username);
         localStorage.setItem("role", response.data.role);
-        localStorage.setItem("is_verified", response.data.is_verified);
+        localStorage.setItem("isVerified", response.data.is_verified);
       }
       dispatch(actionStates.login(response.data));
       return response;
@@ -39,6 +39,6 @@ export const tryLogout = () => (dispatch) => {
   localStorage.removeItem("refreshToken");
   localStorage.removeItem("username");
   localStorage.removeItem("role");
-  localStorage.removeItem("is_verified");
+  localStorage.removeItem("isVerified");
   dispatch(actionStates.logout());
 };

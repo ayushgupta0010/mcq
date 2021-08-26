@@ -6,7 +6,7 @@ import axiosIntercepted from "../../utils/axiosIntercepted";
 import Question from "../UtilityComponents/Question";
 
 const MyQuestions = () => {
-  const { isLoggedIn, username, role, is_verified } = useSelector(
+  const { isLoggedIn, username, role, isVerified } = useSelector(
     (state) => state.auth
   );
 
@@ -17,7 +17,7 @@ const MyQuestions = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       history.push("/login");
-    } else if (is_verified === false) {
+    } else if (isVerified === false) {
       history.push("/unverified");
     } else if (isLoggedIn && role !== "teacher") {
       history.push("/forbidden");
@@ -28,7 +28,7 @@ const MyQuestions = () => {
         .then((response) => setQuestionsList(response.data))
         .catch((error) => error);
     }
-  }, [history, isLoggedIn, is_verified, role, username]);
+  }, [history, isLoggedIn, isVerified, role, username]);
 
   return (
     <div className='container'>

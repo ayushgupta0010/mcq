@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import { TRY_ACTIONS } from "../../redux/action";
 
 const LoggedIn = () => {
-  const { username, role, is_verified } = useSelector((state) => state.auth);
+  const { username, role, isVerified } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   return (
     <>
-      {is_verified === true && (
+      {isVerified === true && (
         <div className='dropdown'>
           <button
             className='bg-transparent border-0'
