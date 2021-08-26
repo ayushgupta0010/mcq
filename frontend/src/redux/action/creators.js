@@ -8,8 +8,8 @@ export const getUserDetail = (username) => (dispatch) => {
     axiosIntercepted
       .get(USER.DETAIL_URL, { urlParams: { username } })
       .then((response) => {
-        localStorage.setItem("isVerified", response.data.is_verified);
-        dispatch(actionStates.updateIsVerified(response.data.is_verified));
+        localStorage.setItem("isVerified", response.data.isVerified);
+        dispatch(actionStates.updateIsVerified(response.data.isVerified));
       })
       .catch((error) => error);
   }
@@ -26,7 +26,7 @@ export const tryLogin = (username, password) => async (dispatch) => {
         localStorage.setItem("refreshToken", response.data.refresh);
         localStorage.setItem("username", response.data.username);
         localStorage.setItem("role", response.data.role);
-        localStorage.setItem("isVerified", response.data.is_verified);
+        localStorage.setItem("isVerified", response.data.isVerified);
       }
       dispatch(actionStates.login(response.data));
       return response;
