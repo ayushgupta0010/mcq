@@ -4,7 +4,7 @@ from .models import Question, Answer
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['user', 'question_type', 'cls']
+    list_display = ['user', 'question_type', 'timestamp']
 
 
 class AnswerAdmin(admin.ModelAdmin):

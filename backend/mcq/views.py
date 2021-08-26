@@ -58,3 +58,13 @@ class AnswerListView(APIView):
         answers = user.answers.all()
         serializer = AnswerSerializer(answers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class QuestionAnsweredList(APIView):
+    def get(self, request, pk):
+        question = get_object_or_404(Question, pk=pk)
+        answered_by = question.answered_by.all()
+        users_list = []
+        for answer in answered_by:
+            users_list.append({'username': answer.user.username, 'marks': answer.marks})
+        return Response(users_list, status=status.HTTP_200_OK)

@@ -9,4 +9,6 @@ urlpatterns = [
 
     path('answer/create', views.AnswerCreateView.as_view()),
     path('answer/list/<username>', views.AnswerListView.as_view()),
+
+    path('list/question/answered/<pk>', views.QuestionAnsweredList.as_view()),
 ]

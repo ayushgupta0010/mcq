@@ -23,10 +23,5 @@ class AnswerSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super(AnswerSerializer, self).to_representation(instance)
         rep['type'] = 'answer'
-        rep['question'] = instance.question.question
-        rep['class'] = instance.question.cls
-        rep['correct_answer'] = instance.question.correct_answer
-        rep['isAnswerCorrect'] = instance.question.correct_answer == instance.answer
-        rep['askedBy'] = instance.question.user.username
-        rep['answeredBy'] = instance.user.username
+        rep['question'] = QuestionSerializer(instance.question).data
         return rep
