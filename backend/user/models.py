@@ -9,4 +9,4 @@ ROLE_LIST = [
 
 class User(AbstractUser):
     role = models.CharField(max_length=7, choices=ROLE_LIST, blank=True, null=True)
-    is_verified = models.BooleanField(blank=True, null=True)
+    isVerified = models.BooleanField(default=False)

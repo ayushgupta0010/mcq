@@ -4,7 +4,7 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'role', 'is_verified']
+    list_display = ['username', 'role', 'isVerified']
 
 
 admin.site.register(User, UserAdmin)

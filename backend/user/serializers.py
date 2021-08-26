@@ -13,7 +13,7 @@ class LoginSerializer(TokenObtainPairSerializer):
         data['access'] = str(refresh.access_token)
         data['username'] = self.user.username
         data['role'] = self.user.role
-        data['is_verified'] = self.user.is_verified
+        data['isVerified'] = self.user.isVerified
         return data
 
 
@@ -22,12 +22,17 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'role', 'is_verified']
+        fields = ['username', 'password', 'role', 'isVerified']
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)
         if password is not None:
             instance.set_password(password)
+        instance.save()
+        return instance
+
+    def update(self, instance, validated_data):
+        instance.isVerified = validated_data.get('isVerified', instance.isVerified)
         instance.save()
         return instance
