@@ -21,6 +21,10 @@ body {
     background: #191919 !important;
 }
 
+.bg-black {
+    background-color: #131313 !important;
+}
+
 .dropdown-item:hover {
     background-color: #0372ad !important;
 }
@@ -28,4 +32,8 @@ body {
 .styledFont {
     font-family: 'Poiret One';
     font-weight: 600;
+}
+
+.text-skyblue {
+    color: #0372ad;
 }
