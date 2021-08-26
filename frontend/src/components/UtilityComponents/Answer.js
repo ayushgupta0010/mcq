@@ -1,8 +1,6 @@
 import React from "react";
+import { getAnswer } from "../../utils/helperFunc";
 import Question from "./Question";
-
-const getAnswer = (ans) =>
-  ans.replaceAll('"', "").replace("[", "").replace("]", "");
 
 const Answer = ({ answer }) => (
   <>

@@ -1,7 +1,5 @@
 import React from "react";
-
-const getAnswer = (ans) =>
-  ans.replaceAll('"', "").replace("[", "").replace("]", "");
+import { getAnswer } from "../../utils/helperFunc";
 
 const LoadMcq = ({ mcq }) => (
   <>
