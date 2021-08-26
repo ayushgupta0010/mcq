@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { USER } from "../../utils/urls";
 import axios from "axios";
-import ClassList from "../UtilityComponents/ClassList";
 
 const Signup = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -11,10 +10,7 @@ const Signup = () => {
   const [user, setUser] = useState({
     username: "",
     password: "",
-    first_name: "",
-    last_name: "",
     role: "",
-    cls: "",
   });
   const [message, setMessage] = useState("");
 
@@ -26,7 +22,7 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(USER.SIGNUP_URL, user)
+      .post(USER.SIGNUP_URL, { ...user, is_verified: user.role === "student" })
       .then((response) => history.push("/login"))
       .catch((error) => setMessage("Username already exists"));
   };
@@ -76,32 +72,6 @@ const Signup = () => {
             <label htmlFor='floatingPassword'>Password</label>
           </div>
           <div className='form-floating mb-3 border-dark w-50'>
-            <input
-              type='text'
-              className='form-control'
-              id='floatingFirstName'
-              placeholder='First Name'
-              name='first_name'
-              value={user.first_name}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor='floatingFirstName'>First Name</label>
-          </div>
-          <div className='form-floating mb-3 border-dark w-50'>
-            <input
-              type='text'
-              className='form-control'
-              id='floatingLastName'
-              placeholder='Last Name'
-              name='last_name'
-              value={user.last_name}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor='floatingLastName'>Last Name</label>
-          </div>
-          <div className='form-floating mb-3 border-dark w-50'>
             <select
               className='form-select'
               id='floatingRole'
@@ -117,22 +87,6 @@ const Signup = () => {
             </select>
             <label htmlFor='floatingRole'>Account type</label>
           </div>
-          {user.role === "student" && (
-            <div className='form-floating mb-3 border-dark w-50'>
-              <select
-                className='form-select'
-                id='floatingClass'
-                name='cls'
-                value={user.cls}
-                onChange={handleChange}
-                required>
-                <ClassList />
-              </select>
-              <label htmlFor='floatingClass' className='text-skyblue fw-bolder'>
-                Class
-              </label>
-            </div>
-          )}
           <button className='btn btn-success'>Signup</button>
         </form>
       </div>
