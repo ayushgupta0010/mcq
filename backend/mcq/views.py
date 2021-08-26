@@ -23,7 +23,7 @@ class QuestionCreateView(APIView):
 class QuestionListByView(APIView):
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        questions = user.questions.all()
+        questions = user.questions.all().order_by('-timestamp')
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -31,7 +31,7 @@ class QuestionListByView(APIView):
 class QuestionListForView(APIView):
     def get(self, request, username):
         questions_for_user = []
-        questions = Question.objects.all()
+        questions = Question.objects.all().order_by('-timestamp')
         for question in questions:
             try:
                 is_answered = Answer.objects.get(question=question, user__username=username)
@@ -55,7 +55,7 @@ class AnswerCreateView(APIView):
 class AnswerListView(APIView):
     def get(self, request, username):
         user = get_object_or_404(User, username=username)
-        answers = user.answers.all()
+        answers = user.answers.all().order_by('-timestamp')
         serializer = AnswerSerializer(answers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

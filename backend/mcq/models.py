@@ -31,6 +31,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answered_by')
     answer = models.CharField(max_length=30)
     marks = models.CharField(max_length=1)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ['user', 'question']
