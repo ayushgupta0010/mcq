@@ -10,6 +10,7 @@ const MyAnswers = () => {
   const [answersList, setAnswersList] = useState([]);
 
   useEffect(() => {
+    document.title = "My Answers";
     axiosIntercepted
       .get(ANSWER.LIST_URL, { urlParams: { username } })
       .then((response) => setAnswersList(response.data))

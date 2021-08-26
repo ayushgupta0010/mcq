@@ -10,6 +10,7 @@ const MyQuestions = () => {
   const [questionsList, setQuestionsList] = useState([]);
 
   useEffect(() => {
+    document.title = "My Questions";
     axiosIntercepted
       .get(QUESTION.LIST_BY_URL, { urlParams: { username } })
       .then((response) => setQuestionsList(response.data))
