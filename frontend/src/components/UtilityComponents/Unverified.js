@@ -19,13 +19,10 @@ const Unverified = () => {
         className='d-flex justify-content-center align-items-center'
         style={{ height: "85vh" }}>
         <div className='text-center'>
+          <p className='text-skyblue m-0 fs-3'>You will be shown this page</p>
           <p className='text-skyblue m-0 fs-3'>
-            You have signed up as a teacher
+            until you are verified by a trusted user
           </p>
-          <p className='text-skyblue m-0 fs-3'>
-            so until you are successfully verified as a teacher,
-          </p>
-          <p className='text-skyblue m-0 fs-3'>you will be shown this page</p>
         </div>
       </div>
     </div>
