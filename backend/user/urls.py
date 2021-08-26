@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.decorators.cache import cache_page
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import DetailView, LoginView, SignupView, VerifyView, UnverifiedListView
+from .views import DetailView, LoginView, SignupView, VerifyView, UnverifiedListView, DeleteView
 
 urlpatterns = [
     path('login', LoginView.as_view()),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('detail/<username>', cache_page(60)(DetailView.as_view())),
     path('verify/<username>', VerifyView.as_view()),
     path('list/unverified', cache_page(30)(UnverifiedListView.as_view())),
+    path('delete/<username>', DeleteView.as_view()),
 ]

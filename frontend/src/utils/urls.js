@@ -9,6 +9,7 @@ export const USER = {
   REFRESH_TOKEN_URL: WEBSITE.BACKEND_URL + "user/refresh_token",
 
   DETAIL_URL: WEBSITE.BACKEND_URL + "user/detail/:username",
+  DELETE_URL: WEBSITE.BACKEND_URL + "user/delete/:username",
   VERIFY_URL: WEBSITE.BACKEND_URL + "user/verify/:username",
   LIST_UNVERIFIED: WEBSITE.BACKEND_URL + "user/list/unverified",
 };
