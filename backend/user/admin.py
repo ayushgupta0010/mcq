@@ -10,7 +10,7 @@ for model_name, model in app.models.items():
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'role', 'isVerified']
+    list_display = ['username', 'role']
 
 
 admin.site.register(User, UserAdmin)
