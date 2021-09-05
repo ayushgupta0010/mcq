@@ -89,6 +89,8 @@ export const trySignup = (username, password, role) => async (dispatch) => {
           ) {
             success
             errors
+            token
+            refreshToken
           }
         }
       `,
