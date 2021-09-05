@@ -138,4 +138,8 @@ GRAPHQL_JWT = {
     'JWT_EXPIRATION_DELTA': timedelta(minutes=15),
 }
 
+GRAPHQL_AUTH = {
+    'REGISTER_MUTATION_FIELDS': ['username', 'role'],
+}
+
 CORS_ALLOW_ALL_ORIGINS = True
