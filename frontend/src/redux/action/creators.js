@@ -71,6 +71,45 @@ export const tryLogin = (username, password) => async (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const trySignup = (username, password, role) => async (dispatch) => {
+  return await client
+    .mutate({
+      mutation: gql`
+        mutation Signup(
+          $username: String!
+          $password1: String!
+          $password2: String!
+          $role: String!
+        ) {
+          signup(
+            username: $username
+            password1: $password1
+            password2: $password2
+            role: $role
+          ) {
+            success
+            errors
+          }
+        }
+      `,
+      variables: {
+        username: username,
+        password1: password,
+        password2: password,
+        role: role,
+      },
+    })
+    .then((response) => {
+      if (response.data.signup.success) {
+        localStorage.setItem("token", response.data.signup.token);
+        localStorage.setItem("refreshToken", response.data.signup.refreshToken);
+        dispatch(actionStates.login(response.data.signup));
+      }
+      return response.data.signup.errors;
+    })
+    .catch((error) => console.log(error));
+};
+
 export const tryLogout = () => (dispatch) => {
   localStorage.removeItem("token");
   localStorage.removeItem("refreshToken");

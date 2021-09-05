@@ -1,4 +1,4 @@
-import { getUserDetail, tryLogin, tryLogout } from "./creators";
+import { getUserDetail, tryLogin, tryLogout, trySignup } from "./creators";
 
 export const GET_ACTIONS = {
   USER_DETAIL: getUserDetail,
@@ -7,4 +7,5 @@ export const GET_ACTIONS = {
 export const TRY_ACTIONS = {
   LOGIN: tryLogin,
   LOGOUT: tryLogout,
+  SIGNUP: trySignup,
 };

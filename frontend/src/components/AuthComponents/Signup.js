@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { USER } from "../../utils/urls";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { TRY_ACTIONS } from "../../redux/action";
 
 const Signup = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -14,6 +13,7 @@ const Signup = () => {
   });
   const [message, setMessage] = useState("");
 
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleChange = (e) =>
@@ -21,10 +21,13 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(USER.SIGNUP_URL, user)
-      .then((response) => history.push("/login"))
-      .catch((error) => setMessage("Username already exists"));
+    dispatch(TRY_ACTIONS.SIGNUP(user.username, user.password, user.role)).then(
+      (errors) => {
+        errors &&
+          errors.username !== undefined &&
+          setMessage("Username already exists");
+      }
+    );
   };
 
   useEffect(() => {
