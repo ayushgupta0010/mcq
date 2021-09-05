@@ -1,19 +1,20 @@
 import * as actionTypes from "../action/types";
 
-const username = localStorage.getItem("username");
-const role = localStorage.getItem("role");
-const isVerified = localStorage.getItem("isVerified") === "true";
+const token = localStorage.getItem("token");
+const refreshToken = localStorage.getItem("refreshTokens");
 
-const defaultDict = {
+const defaultState = {
   isLoggedIn: false,
   username: "",
   role: "",
-  isVerified: null,
+  token: "",
+  refreshToken: "",
 };
 
-const initialState = username
-  ? { ...defaultDict, isLoggedIn: true, username, role, isVerified }
-  : defaultDict;
+const initialState =
+  token && refreshToken
+    ? { ...defaultState, token, refreshToken }
+    : defaultState;
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -21,21 +22,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: true,
+        token: action.payload.token,
+        refreshToken: action.payload.refreshToken,
+      };
+
+    case actionTypes.UPDATE_USER_DETAIL:
+      return {
+        ...state,
         username: action.payload.username,
         role: action.payload.role,
-        isVerified: action.payload.isVerified,
       };
 
     case actionTypes.LOGOUT:
       return {
         ...state,
-        ...defaultDict,
-      };
-
-    case actionTypes.UPDATE_IS_VERIFIED:
-      return {
-        ...state,
-        isVerified: action.payload.isVerified,
+        ...initialState,
       };
 
     default:

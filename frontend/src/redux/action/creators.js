@@ -1,44 +1,78 @@
-import { USER } from "../../utils/urls";
-import axiosIntercepted from "../../utils/axiosIntercepted";
 import * as actionStates from "./states";
+import client from "../../utils/apollo";
+import gql from "graphql-tag";
 
-export const getUserDetail = (username) => (dispatch) => {
-  const isVerified = localStorage.getItem("isVerified") === "true";
-  if (!isVerified) {
-    axiosIntercepted
-      .get(USER.DETAIL_URL, { urlParams: { username } })
-      .then((response) => {
-        localStorage.setItem("isVerified", response.data.isVerified);
-        dispatch(actionStates.updateIsVerified(response.data.isVerified));
-      })
-      .catch((error) => error);
-  }
+export const getUserDetail = () => (dispatch) => {
+  client
+    .query({
+      query: gql`
+        query {
+          user: me {
+            username
+            role
+          }
+        }
+      `,
+    })
+    .then((response) => {
+      if (response.data.user) {
+        dispatch(actionStates.updateUserDetails(response.data.user));
+      } else {
+        client
+          .mutate({
+            mutation: gql`
+              mutation RefreshToken($refreshToken: String!) {
+                getToken: refreshToken(refreshToken: $refreshToken) {
+                  token
+                  refreshToken
+                }
+              }
+            `,
+            variables: { refreshToken: localStorage.getItem("refreshToken") },
+          })
+          .then((response) => {
+            if (response.data.getToken) {
+              localStorage.setItem("token", response.data.getToken.token);
+              localStorage.setItem(
+                "refreshToken",
+                response.data.getToken.refreshToken
+              );
+              dispatch(actionStates.login(response.data.user));
+            } else {
+              tryLogout();
+            }
+          });
+      }
+    })
+    .catch((error) => console.log(error));
 };
 
 export const tryLogin = (username, password) => async (dispatch) => {
-  return await axiosIntercepted
-    .post(USER.LOGIN_URL, { username, password })
+  return await client
+    .mutate({
+      mutation: gql`
+        mutation Login($username: String!, $password: String!) {
+          user: login(username: $username, password: $password) {
+            token
+            refreshToken
+          }
+        }
+      `,
+      variables: { username, password },
+    })
     .then((response) => {
-      if (response.data.access && response.data.refresh) {
-        axiosIntercepted.defaults.headers["Authorization"] =
-          "JWT " + response.data.access;
-        localStorage.setItem("accessToken", response.data.access);
-        localStorage.setItem("refreshToken", response.data.refresh);
-        localStorage.setItem("username", response.data.username);
-        localStorage.setItem("role", response.data.role);
-        localStorage.setItem("isVerified", response.data.isVerified);
+      if (response.data.user.token) {
+        localStorage.setItem("token", response.data.user.token);
+        localStorage.setItem("refreshToken", response.data.user.refreshToken);
+        dispatch(actionStates.login(response.data.user));
       }
-      dispatch(actionStates.login(response.data));
       return response;
     })
-    .catch((error) => error.response);
+    .catch((error) => console.log(error));
 };
 
 export const tryLogout = () => (dispatch) => {
-  localStorage.removeItem("accessToken");
+  localStorage.removeItem("token");
   localStorage.removeItem("refreshToken");
-  localStorage.removeItem("username");
-  localStorage.removeItem("role");
-  localStorage.removeItem("isVerified");
   dispatch(actionStates.logout());
 };

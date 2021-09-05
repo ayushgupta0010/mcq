@@ -4,9 +4,18 @@ export const login = (user) => {
   return {
     type: actionTypes.LOGIN,
     payload: {
+      token: user.token,
+      refreshToken: user.refreshToken,
+    },
+  };
+};
+
+export const updateUserDetails = (user) => {
+  return {
+    type: actionTypes.UPDATE_USER_DETAIL,
+    payload: {
       username: user.username,
       role: user.role,
-      isVerified: user.is_verified,
     },
   };
 };
@@ -14,12 +23,5 @@ export const login = (user) => {
 export const logout = () => {
   return {
     type: actionTypes.LOGOUT,
-  };
-};
-
-export const updateIsVerified = (isVerified) => {
-  return {
-    type: actionTypes.UPDATE_IS_VERIFIED,
-    payload: { isVerified },
   };
 };
