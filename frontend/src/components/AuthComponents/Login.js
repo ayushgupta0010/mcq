@@ -16,10 +16,10 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(TRY_ACTIONS.LOGIN(username, password))
-      .then((response) =>
-        response.status === 401
-          ? setMessage("Incorrect username or password")
-          : setMessage("Something went wrong")
+      .then(
+        (response) =>
+          response.data.user.token === null &&
+          setMessage("Incorrect credentials")
       )
       .catch((error) => setMessage("Something went wrong"));
   };
