@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     # third party apps
     'corsheaders',
     'graphene_django',
+    'graphql_auth',
+    'django_filters',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     # my apps
     'user',
@@ -126,7 +128,7 @@ GRAPHENE = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    'graphql_jwt.backends.JSONWebTokenBackend',
+    'graphql_auth.backends.GraphQLAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -137,5 +139,3 @@ GRAPHQL_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-CORS_ALLOW_CREDENTIALS = True
