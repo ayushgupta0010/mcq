@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { QUESTION } from "../../utils/urls";
-import axiosIntercepted from "../../utils/axiosIntercepted";
+import gql from "graphql-tag";
+import client from "../../utils/apollo";
 import Mcq from "./Mcq";
 import OneWord from "./OneWord";
 import TrueFalse from "./TrueFalse";
 
 const PostQuestion = () => {
-  const {
-    username: user,
-    isLoggedIn,
-    role,
-  } = useSelector((state) => state.auth);
+  const { username: user, isLoggedIn } = useSelector((state) => state.auth);
 
   const [question, setQuestion] = useState("");
   const [questionType, setQuestionType] = useState("MCQ(Single Correct)");
@@ -106,26 +102,52 @@ const PostQuestion = () => {
       postData.correct_answer = correctAnswer.trueFalse;
     }
 
-    axiosIntercepted
-      .post(QUESTION.CREATE_URL, postData)
+    client
+      .mutate({
+        mutation: gql`
+          mutation CreateQuestion(
+            $user: String!
+            $question: String!
+            $question_type: String!
+            $mcqOptionA: String!
+            $mcqOptionB: String!
+            $mcqOptionC: String!
+            $mcqOptionD: String!
+            $correct_answer: String!
+          ) {
+            createQue(
+              questionData: {
+                user: $user
+                question: $question
+                questionType: $question_type
+                mcqOptionA: $mcqOptionA
+                mcqOptionB: $mcqOptionB
+                mcqOptionC: $mcqOptionC
+                mcqOptionD: $mcqOptionD
+                correctAnswer: $correct_answer
+              }
+            ) {
+              question {
+                id
+              }
+            }
+          }
+        `,
+        variables: { ...postData },
+      })
       .then((response) => {
         setMessage("Question uploaded");
         clearForm();
-      })
-      .catch((error) =>
-        setMessage("An unknown error occurred. Try again later")
-      );
+      });
   };
 
   useEffect(() => {
     if (!isLoggedIn) {
       history.push("/login");
-    } else if (role !== "teacher") {
-      history.push("/forbidden");
     } else {
       document.title = "Post Question";
     }
-  }, [history, isLoggedIn, role]);
+  }, [history, isLoggedIn]);
 
   return (
     <div className='container my-2'>
