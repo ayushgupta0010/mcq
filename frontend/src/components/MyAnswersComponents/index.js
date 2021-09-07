@@ -1,7 +1,7 @@
-import gql from "graphql-tag";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import gql from "graphql-tag";
 import client from "../../utils/apollo";
 import Answer from "../UtilityComponents/Answer";
 

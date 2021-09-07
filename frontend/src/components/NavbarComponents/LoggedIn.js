@@ -25,7 +25,7 @@ const LoggedIn = () => {
           </span>
         </li>
         <hr className='bg-secondary my-1' />
-        {role === "teacher" && (
+        {role === "TEACHER" && (
           <>
             <li>
               <Link className='dropdown-item text-light' to='/post'>
