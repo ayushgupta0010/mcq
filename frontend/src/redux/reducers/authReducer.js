@@ -1,7 +1,7 @@
 import * as actionTypes from "../action/types";
 
 const token = localStorage.getItem("token");
-const refreshToken = localStorage.getItem("refreshTokens");
+const refreshToken = localStorage.getItem("refreshToken");
 
 const defaultState = {
   isLoggedIn: false,
@@ -13,7 +13,7 @@ const defaultState = {
 
 const initialState =
   token && refreshToken
-    ? { ...defaultState, token, refreshToken }
+    ? { ...defaultState, isLoggedIn: true, token, refreshToken }
     : defaultState;
 
 const reducer = (state = initialState, action) => {

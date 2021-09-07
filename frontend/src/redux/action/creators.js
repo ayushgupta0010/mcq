@@ -37,7 +37,7 @@ export const getUserDetail = () => (dispatch) => {
                 "refreshToken",
                 response.data.getToken.refreshToken
               );
-              dispatch(actionStates.login(response.data.user));
+              dispatch(actionStates.login(response.data.getToken));
             } else {
               tryLogout();
             }
