@@ -8,6 +8,12 @@ from .models import Question, Answer
 User = get_user_model()
 
 
+class UserType(DjangoObjectType):
+    class Meta:
+        model = User
+        fields = ['username', 'role']
+
+
 class QuestionType(DjangoObjectType):
     class Meta:
         model = Question
@@ -21,24 +27,24 @@ class AnswerType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    que_list_by_user = graphene.List(QuestionType, username=graphene.String(required=True))
-    que_list_for_user = graphene.List(QuestionType, username=graphene.String(required=True))
-    ans_list = graphene.List(AnswerType, username=graphene.String(required=True))
+    que_list_by_user = graphene.List(QuestionType)
+    que_list_for_user = graphene.List(QuestionType)
+    ans_list = graphene.List(AnswerType)
 
-    def resolve_que_list_by_user(root, info, username):
-        user = User.objects.get(username=username)
+    def resolve_que_list_by_user(root, info):
+        user = info.context.user
         questions = user.questions.all().order_by('-timestamp')
         return questions
 
-    def resolve_que_list_for_user(root, info, username):
-        user = User.objects.get(username=username)
+    def resolve_que_list_for_user(root, info):
+        user = info.context.user
         que_ans_by_user = list(user.answers.values_list('question__id', flat=True))
         questions = Question.objects.filter(~Q(id__in=que_ans_by_user))
         return questions
 
-    def resolve_ans_list(root, info, username):
-        user = User.objects.get(username=username)
-        answers = user.answers.all().order_by('-timestamp')
+    def resolve_ans_list(root, info):
+        user = info.context.user
+        answers = Answer.objects.filter(user=user).order_by('-timestamp')
         return answers
 
 
