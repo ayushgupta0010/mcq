@@ -11,8 +11,8 @@ const OneWord = ({ data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { id: question, correct_answer } = data;
-    const marks = correct_answer === answer ? 1 : 0;
+    const { id: question, correctAnswer } = data;
+    const marks = correctAnswer === answer ? 1 : 0;
     const res = await postAnswer(user, question, answer, marks);
     setAnswerReceived(res);
   };

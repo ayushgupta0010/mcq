@@ -20,9 +20,9 @@ const McqMulti = ({ data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { id: question, correct_answer } = data;
+    const { id: question, correctAnswer } = data;
     const modifiedCorrectAns = JSON.stringify(
-      correct_answer
+      correctAnswer
         .replaceAll('"', "")
         .replace("[", "")
         .replace("]", "")

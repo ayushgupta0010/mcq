@@ -7,7 +7,7 @@ const InnerAnswer = ({ answer }) => (
     <p className='text-skyblue m-0 mb-1'>
       Correct answer:
       <span className='text-light ms-1'>
-        {getAnswer(answer.question.correct_answer)}
+        {getAnswer(answer.question.correctAnswer)}
       </span>
     </p>
     <p className='text-skyblue m-0 mb-1'>
