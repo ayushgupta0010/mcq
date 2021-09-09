@@ -10,8 +10,11 @@ const Navbar = () => {
   return (
     <nav className='navbar navbar-dark navbar-expand-lg bg-dark'>
       <div className='container'>
-        <Link className='navbar-brand' to='/'>
-          test
+        <Link
+          to='/'
+          className='navbar-brand styledFont text-success'
+          style={{ fontWeight: "600" }}>
+          MCQ
         </Link>
         {isLoggedIn ? <LoggedIn /> : <LoggedOut />}
       </div>
