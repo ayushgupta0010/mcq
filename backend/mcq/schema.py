@@ -11,7 +11,7 @@ User = get_user_model()
 class UserType(DjangoObjectType):
     class Meta:
         model = User
-        fields = ['username', 'role']
+        fields = ['id', 'username', 'role']
 
 
 class QuestionType(DjangoObjectType):
@@ -33,19 +33,22 @@ class Query(graphene.ObjectType):
 
     def resolve_que_list_by_user(root, info):
         user = info.context.user
-        questions = user.questions.all().order_by('-timestamp')
-        return questions
+        if user.is_authenticated:
+            questions = user.questions.all().order_by('-timestamp')
+            return questions
 
     def resolve_que_list_for_user(root, info):
         user = info.context.user
-        que_ans_by_user = list(user.answers.values_list('question__id', flat=True))
-        questions = Question.objects.filter(~Q(id__in=que_ans_by_user))
-        return questions
+        if user.is_authenticated:
+            que_ans_by_user = list(user.answers.values_list('question__id', flat=True))
+            questions = Question.objects.filter(~Q(id__in=que_ans_by_user))
+            return questions
 
     def resolve_ans_list(root, info):
         user = info.context.user
-        answers = Answer.objects.filter(user=user).order_by('-timestamp')
-        return answers
+        if user.is_authenticated:
+            answers = Answer.objects.filter(user=user).order_by('-timestamp')
+            return answers
 
 
 class QuestionInput(graphene.InputObjectType):
