@@ -1,6 +1,6 @@
 import * as actionStates from "./states";
-import client from "../../utils/apollo";
 import gql from "graphql-tag";
+import client from "../../utils/apollo";
 
 export const getUserDetail = () => (dispatch) => {
   client
@@ -118,4 +118,5 @@ export const tryLogout = () => (dispatch) => {
   localStorage.removeItem("token");
   localStorage.removeItem("refreshToken");
   dispatch(actionStates.logout());
+  client.clearStore();
 };
