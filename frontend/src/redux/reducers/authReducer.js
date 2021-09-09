@@ -5,10 +5,10 @@ const refreshToken = localStorage.getItem("refreshToken");
 
 const defaultState = {
   isLoggedIn: false,
-  username: "",
-  role: "",
-  token: "",
-  refreshToken: "",
+  username: null,
+  role: null,
+  token: null,
+  refreshToken: null,
   isVerified: null,
 };
 
