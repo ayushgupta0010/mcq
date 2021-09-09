@@ -30,6 +30,7 @@ class Query(graphene.ObjectType):
     que_list_by_user = graphene.List(QuestionType)
     que_list_for_user = graphene.List(QuestionType)
     ans_list = graphene.List(AnswerType)
+    que_ans_by_list = graphene.List(AnswerType, id=graphene.ID(required=True))
 
     def resolve_que_list_by_user(root, info):
         user = info.context.user
@@ -49,6 +50,11 @@ class Query(graphene.ObjectType):
         if user.is_authenticated:
             answers = Answer.objects.filter(user=user).order_by('-timestamp')
             return answers
+
+    def resolve_que_ans_by_list(root, info, id):
+        question = Question.objects.get(id=id)
+        answers = question.answered_by.all()
+        return answers
 
 
 class QuestionInput(graphene.InputObjectType):
