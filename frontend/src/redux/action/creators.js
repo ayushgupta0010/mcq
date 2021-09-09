@@ -8,8 +8,10 @@ export const getUserDetail = () => (dispatch) => {
       query: gql`
         query {
           user: me {
+            id
             username
             role
+            isVerified
           }
         }
       `,

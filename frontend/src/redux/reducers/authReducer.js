@@ -9,6 +9,7 @@ const defaultState = {
   role: "",
   token: "",
   refreshToken: "",
+  isVerified: null,
 };
 
 const initialState =
@@ -31,6 +32,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         username: action.payload.username,
         role: action.payload.role,
+        isVerified: action.payload.isVerified,
       };
 
     case actionTypes.LOGOUT:

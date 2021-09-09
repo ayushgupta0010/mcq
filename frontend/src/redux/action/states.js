@@ -16,6 +16,7 @@ export const updateUserDetails = (user) => {
     payload: {
       username: user.username,
       role: user.role,
+      isVerified: user.isVerified,
     },
   };
 };
