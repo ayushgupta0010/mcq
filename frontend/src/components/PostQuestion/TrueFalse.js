@@ -2,7 +2,9 @@ import React from "react";
 
 const TrueFalse = ({ data }) => (
   <div className='container mb-2'>
-    <span className='styledFont text-skyblue me-2'>Correct Answer: </span>
+    <span className='styledFont fw-bold text-skyblue me-2'>
+      Correct Answer:
+    </span>
     <div className='form-check form-check-inline'>
       <input
         type='radio'
