@@ -36,13 +36,18 @@ const Signup = () => {
 
   return (
     <div className='container'>
-      <div className='d-flex justify-content-center my-5'>
+      <div className='d-flex justify-content-center my-3'>
         <div className='bg-black my-4 p-5 rounded'>
           {message && (
             <div className='alert alert-danger' role='alert'>
               {message}
             </div>
           )}
+          <p className='text-center styledFont text-light fs-1'>
+            <i className='bi bi-person-plus' />
+            <br />
+            Sign Up
+          </p>
           <form onSubmit={handleSubmit}>
             <div className='form-floating mb-3'>
               <input
@@ -98,7 +103,9 @@ const Signup = () => {
               </label>
             </div>
             <div className='text-center'>
-              <button className='btn btn-success w-100'>Sign Up</button>
+              <button className='btn btn-success w-100'>
+                <i className='bi bi-chevron-double-right' />
+              </button>
             </div>
           </form>
         </div>
