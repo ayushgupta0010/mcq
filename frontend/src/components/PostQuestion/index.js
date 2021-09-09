@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import gql from "graphql-tag";
+import { CREATE_QUESTION } from "../../utils/mutation";
 import client from "../../utils/apollo";
 import Mcq from "./Mcq";
 import OneWord from "./OneWord";
@@ -107,38 +107,7 @@ const PostQuestion = () => {
     }
 
     client
-      .mutate({
-        mutation: gql`
-          mutation CreateQuestion(
-            $user: String!
-            $question: String!
-            $question_type: String!
-            $mcqOptionA: String!
-            $mcqOptionB: String!
-            $mcqOptionC: String!
-            $mcqOptionD: String!
-            $correct_answer: String!
-          ) {
-            createQue(
-              questionData: {
-                user: $user
-                question: $question
-                questionType: $question_type
-                mcqOptionA: $mcqOptionA
-                mcqOptionB: $mcqOptionB
-                mcqOptionC: $mcqOptionC
-                mcqOptionD: $mcqOptionD
-                correctAnswer: $correct_answer
-              }
-            ) {
-              question {
-                id
-              }
-            }
-          }
-        `,
-        variables: { ...postData },
-      })
+      .mutate({ mutation: CREATE_QUESTION, variables: { ...postData } })
       .then((response) => {
         setMessage("Question uploaded");
         clearForm();

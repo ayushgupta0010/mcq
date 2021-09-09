@@ -1,35 +1,18 @@
 import * as actionStates from "./states";
-import gql from "graphql-tag";
+import { GET_USER_DETAIL } from "../../utils/query";
+import { LOGIN, REFRESH_TOKEN, SIGNUP } from "../../utils/mutation";
 import client from "../../utils/apollo";
 
 export const getUserDetail = () => (dispatch) => {
   client
-    .query({
-      query: gql`
-        query {
-          user: me {
-            id
-            username
-            role
-            isVerified
-          }
-        }
-      `,
-    })
+    .query({ query: GET_USER_DETAIL })
     .then((response) => {
       if (response.data.user) {
         dispatch(actionStates.updateUserDetails(response.data.user));
       } else {
         client
           .mutate({
-            mutation: gql`
-              mutation RefreshToken($refreshToken: String!) {
-                getToken: refreshToken(refreshToken: $refreshToken) {
-                  token
-                  refreshToken
-                }
-              }
-            `,
+            mutation: REFRESH_TOKEN,
             variables: { refreshToken: localStorage.getItem("refreshToken") },
           })
           .then((response) => {
@@ -51,17 +34,7 @@ export const getUserDetail = () => (dispatch) => {
 
 export const tryLogin = (username, password) => async (dispatch) => {
   return await client
-    .mutate({
-      mutation: gql`
-        mutation Login($username: String!, $password: String!) {
-          user: login(username: $username, password: $password) {
-            token
-            refreshToken
-          }
-        }
-      `,
-      variables: { username, password },
-    })
+    .mutate({ mutation: LOGIN, variables: { username, password } })
     .then((response) => {
       if (response.data.user.token) {
         localStorage.setItem("token", response.data.user.token);
@@ -76,26 +49,7 @@ export const tryLogin = (username, password) => async (dispatch) => {
 export const trySignup = (username, password, role) => async (dispatch) => {
   return await client
     .mutate({
-      mutation: gql`
-        mutation Signup(
-          $username: String!
-          $password1: String!
-          $password2: String!
-          $role: String!
-        ) {
-          signup(
-            username: $username
-            password1: $password1
-            password2: $password2
-            role: $role
-          ) {
-            success
-            errors
-            token
-            refreshToken
-          }
-        }
-      `,
+      mutation: SIGNUP,
       variables: {
         username: username,
         password1: password,

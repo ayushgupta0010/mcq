@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import gql from "graphql-tag";
+import { UNVERIFIED_USERS_LIST } from "../../utils/query";
+import { VERIFY_USER, UNVERIFY_USER } from "../../utils/mutation";
 import client from "../../utils/apollo";
 
 const UnverifiedUsers = () => {
@@ -18,35 +19,13 @@ const UnverifiedUsers = () => {
 
   const handleVerify = (username) =>
     client
-      .mutate({
-        mutation: gql`
-          mutation VerifyUser($username: String!) {
-            verifyUser(username: $username) {
-              user {
-                id
-              }
-            }
-          }
-        `,
-        variables: { username },
-      })
+      .mutate({ mutation: VERIFY_USER, variables: { username } })
       .then((response) => removeUser(username))
       .catch((error) => error);
 
   const handleUnverify = (username) =>
     client
-      .mutate({
-        mutation: gql`
-          mutation UnverifyUser($username: String!) {
-            deleteUser(username: $username) {
-              user {
-                id
-              }
-            }
-          }
-        `,
-        variables: { username },
-      })
+      .mutate({ mutation: UNVERIFY_USER, variables: { username } })
       .then((response) => removeUser(username))
       .catch((error) => error);
 
@@ -57,16 +36,7 @@ const UnverifiedUsers = () => {
     else {
       document.title = "Unverified Users";
       client
-        .query({
-          query: gql`
-            query {
-              list: listUnverified {
-                id
-                username
-              }
-            }
-          `,
-        })
+        .query({ query: UNVERIFIED_USERS_LIST })
         .then((response) => setUsersList(response.data.list))
         .catch((error) => error);
     }

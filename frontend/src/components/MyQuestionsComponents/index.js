@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import gql from "graphql-tag";
+import { QUE_LIST_BY_USER } from "../../utils/query";
 import client from "../../utils/apollo";
 import Question from "../UtilityComponents/Question";
 
@@ -21,24 +21,7 @@ const MyQuestions = () => {
     else {
       document.title = "My Questions";
       client
-        .query({
-          query: gql`
-            query {
-              queListByUser {
-                user {
-                  username
-                }
-                question
-                questionType
-                mcqOptionA
-                mcqOptionB
-                mcqOptionC
-                mcqOptionD
-                correctAnswer
-              }
-            }
-          `,
-        })
+        .query({ query: QUE_LIST_BY_USER })
         .then((response) => setQuestionsList(response.data.queListByUser))
         .catch((error) => error);
     }

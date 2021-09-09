@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import gql from "graphql-tag";
+import { ANS_LIST } from "../../utils/query";
 import client from "../../utils/apollo";
 import Answer from "../UtilityComponents/Answer";
 
@@ -20,28 +20,7 @@ const MyAnswers = () => {
     else {
       document.title = "My Answers";
       client
-        .query({
-          query: gql`
-            query {
-              ansList {
-                question {
-                  user {
-                    username
-                  }
-                  questionType
-                  question
-                  mcqOptionA
-                  mcqOptionB
-                  mcqOptionC
-                  mcqOptionD
-                  correctAnswer
-                }
-                answer
-                marks
-              }
-            }
-          `,
-        })
+        .query({ query: ANS_LIST })
         .then((response) => setAnswersList(response.data.ansList))
         .catch((error) => error);
     }

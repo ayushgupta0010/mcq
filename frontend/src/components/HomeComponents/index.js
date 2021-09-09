@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import gql from "graphql-tag";
+import { QUE_LIST_FOR_USER } from "../../utils/query";
+import client from "../../utils/apollo";
 import McqSingle from "./McqSingle";
 import McqMulti from "./McqMulti";
 import OneWord from "./OneWord";
 import TrueFalse from "./TrueFalse";
-import client from "../../utils/apollo";
 
 const Home = () => {
   const { isLoggedIn, username, isVerified } = useSelector(
@@ -23,25 +23,7 @@ const Home = () => {
     else {
       document.title = "Home";
       client
-        .query({
-          query: gql`
-            query {
-              queListForUser {
-                id
-                user {
-                  username
-                }
-                questionType
-                question
-                mcqOptionA
-                mcqOptionB
-                mcqOptionC
-                mcqOptionD
-                correctAnswer
-              }
-            }
-          `,
-        })
+        .query({ query: QUE_LIST_FOR_USER })
         .then((response) => setQuestionsList(response.data.queListForUser))
         .catch((error) => error);
     }
