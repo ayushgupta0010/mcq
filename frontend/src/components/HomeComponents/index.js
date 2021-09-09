@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import gql from "graphql-tag";
 import McqSingle from "./McqSingle";
 import McqMulti from "./McqMulti";
 import OneWord from "./OneWord";
 import TrueFalse from "./TrueFalse";
 import client from "../../utils/apollo";
-import gql from "graphql-tag";
 
 const Home = () => {
-  const { isLoggedIn, username } = useSelector((state) => state.auth);
+  const { isLoggedIn, username, isVerified } = useSelector(
+    (state) => state.auth
+  );
 
   const [questionsList, setQuestionsList] = useState([]);
 
   const history = useHistory();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      history.push("/login");
-    } else {
+    if (!isLoggedIn) history.push("/login");
+    else if (isVerified === false) history.push("/account-unverified");
+    else {
       document.title = "Home";
       client
         .query({
@@ -43,7 +45,7 @@ const Home = () => {
         .then((response) => setQuestionsList(response.data.queListForUser))
         .catch((error) => error);
     }
-  }, [history, isLoggedIn, username]);
+  }, [history, isLoggedIn, isVerified, username]);
 
   return (
     <div className='container'>

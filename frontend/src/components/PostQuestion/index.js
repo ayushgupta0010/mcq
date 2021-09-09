@@ -8,7 +8,11 @@ import OneWord from "./OneWord";
 import TrueFalse from "./TrueFalse";
 
 const PostQuestion = () => {
-  const { username: user, isLoggedIn } = useSelector((state) => state.auth);
+  const {
+    username: user,
+    isLoggedIn,
+    role,
+  } = useSelector((state) => state.auth);
 
   const [question, setQuestion] = useState("");
   const [questionType, setQuestionType] = useState("MCQ(Single Correct)");
@@ -142,12 +146,10 @@ const PostQuestion = () => {
   };
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      history.push("/login");
-    } else {
-      document.title = "Post Question";
-    }
-  }, [history, isLoggedIn]);
+    if (!isLoggedIn) history.push("/login");
+    else if (role !== "TEACHER") history.push("/forbidden");
+    else document.title = "Post Question";
+  }, [history, isLoggedIn, role]);
 
   return (
     <div className='container my-2'>

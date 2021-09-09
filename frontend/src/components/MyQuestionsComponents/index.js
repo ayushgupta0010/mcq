@@ -6,16 +6,19 @@ import client from "../../utils/apollo";
 import Question from "../UtilityComponents/Question";
 
 const MyQuestions = () => {
-  const { isLoggedIn, username } = useSelector((state) => state.auth);
+  const { isLoggedIn, username, role, isVerified } = useSelector(
+    (state) => state.auth
+  );
 
   const [questionsList, setQuestionsList] = useState([]);
 
   const history = useHistory();
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      history.push("/login");
-    } else {
+    if (!isLoggedIn) history.push("/login");
+    else if (isVerified === false) history.push("/account-unverified");
+    else if (role !== "TEACHER") history.push("/forbidden");
+    else {
       document.title = "My Questions";
       client
         .query({
@@ -36,9 +39,10 @@ const MyQuestions = () => {
             }
           `,
         })
-        .then((response) => setQuestionsList(response.data.queListByUser));
+        .then((response) => setQuestionsList(response.data.queListByUser))
+        .catch((error) => error);
     }
-  }, [history, isLoggedIn, username]);
+  }, [history, isLoggedIn, isVerified, role, username]);
 
   return (
     <div className='container'>

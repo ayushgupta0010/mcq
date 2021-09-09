@@ -25,11 +25,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
-      history.push("/");
-    } else {
-      document.title = "Login";
-    }
+    isLoggedIn ? history.push("/") : (document.title = "Login");
   }, [history, isLoggedIn]);
 
   return (
