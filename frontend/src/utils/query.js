@@ -72,6 +72,7 @@ export const ANS_LIST = gql`
     ansList {
       id
       question {
+        id
         user {
           username
         }
