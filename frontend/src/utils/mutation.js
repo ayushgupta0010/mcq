@@ -30,11 +30,22 @@ export const SIGNUP = gql`
   }
 `;
 
-export const REFRESH_TOKEN = `
+export const REFRESH_AND_REVOKE_TOKEN = `
   mutation RefreshToken($refreshToken: String!) {
     getToken: refreshToken(refreshToken: $refreshToken) {
       token
       refreshToken
+    }
+    revokeToken(refreshToken: $refreshToken) {
+      revoked
+    }
+  }
+`;
+
+export const REVOKE_TOKEN = gql`
+  mutation RevokeToken($refreshToken: String!) {
+    revokeToken(refreshToken: $refreshToken) {
+      revoked
     }
   }
 `;

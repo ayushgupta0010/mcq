@@ -136,7 +136,13 @@ GRAPHQL_JWT = {
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
     'JWT_EXPIRATION_DELTA': timedelta(hours=3),
-    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=200)
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=200),
+    'JWT_ALLOW_ANY_CLASSES': [
+        'graphql_auth.mutations.Register',
+        'graphql_auth.mutations.ObtainJSONWebToken',
+        'graphql_auth.mutations.RefreshToken',
+        'graphql_auth.mutations.RevokeToken',
+    ]
 }
 
 GRAPHQL_AUTH = {

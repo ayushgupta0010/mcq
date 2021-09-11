@@ -1,6 +1,6 @@
 import * as actionStates from "./states";
 import { GET_USER_DETAIL } from "../../utils/query";
-import { LOGIN, SIGNUP } from "../../utils/mutation";
+import { LOGIN, REVOKE_TOKEN, SIGNUP } from "../../utils/mutation";
 import client from "../../utils/apollo";
 
 export const getUserDetail = () => (dispatch) => {
@@ -46,6 +46,10 @@ export const trySignup = (username, password, role) => async (dispatch) => {
 };
 
 export const tryLogout = () => (dispatch) => {
+  client.mutate({
+    mutation: REVOKE_TOKEN,
+    variables: { refreshToken: localStorage.getItem("refreshToken") },
+  });
   localStorage.removeItem("token");
   localStorage.removeItem("refreshToken");
   dispatch(actionStates.logout());

@@ -51,5 +51,6 @@ class Mutation(graphene.ObjectType):
     signup = mutations.Register.Field()
     login = mutations.ObtainJSONWebToken.Field()
     refresh_token = mutations.RefreshToken.Field()
+    revoke_token = mutations.RevokeToken.Field()
     verify_user = UserVerifiedMutation.Field()
     delete_user = UserDeleteMutation.Field()

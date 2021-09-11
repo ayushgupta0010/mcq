@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { login } from "../redux/action/states";
 import { tryLogout } from "../redux/action/creators";
-import { REFRESH_TOKEN } from "./mutation";
+import { REFRESH_AND_REVOKE_TOKEN } from "./mutation";
 import store from "../redux/store";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
@@ -20,14 +20,18 @@ const authMiddleware = setContext(async (_, { headers }) => {
     if (Date.now() >= expirationTime) {
       await axios
         .post(uri, {
-          query: REFRESH_TOKEN,
+          query: REFRESH_AND_REVOKE_TOKEN,
           variables: { refreshToken: localStorage.getItem("refreshToken") },
         })
         .then((response) => {
           if (response.data.data.getToken === null) store.dispatch(tryLogout());
           else {
-            token = response.data.getToken.token;
+            token = response.data.data.getToken.token;
             localStorage.setItem("token", token);
+            localStorage.setItem(
+              "refreshToken",
+              response.data.data.getToken.refreshToken
+            );
             store.dispatch(login(response.data.data.getToken));
           }
         });

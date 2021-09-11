@@ -121,10 +121,10 @@ const PostQuestion = () => {
   }, [history, isLoggedIn, role]);
 
   return (
-    <div className='container my-2'>
+    <div className='container my-3'>
       <div className='d-flex justify-content-center mt-2'>
         {message && (
-          <div className='alert alert-success' role='alert'>
+          <div className='alert alert-success m-0 styledFont' role='alert'>
             {message}
           </div>
         )}
