@@ -116,7 +116,7 @@ const PostQuestion = () => {
 
   useEffect(() => {
     if (!isLoggedIn) history.push("/login");
-    else if (role !== "TEACHER") history.push("/forbidden");
+    else if (role && role !== "TEACHER") history.push("/forbidden");
     else document.title = "Post Question";
   }, [history, isLoggedIn, role]);
 

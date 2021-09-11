@@ -41,6 +41,7 @@ export const QUE_LIST_FOR_USER = gql`
 export const QUE_LIST_BY_USER = gql`
   query {
     queListByUser {
+      id
       user {
         username
       }
@@ -55,9 +56,21 @@ export const QUE_LIST_BY_USER = gql`
   }
 `;
 
+export const QUE_ANS_BY_LIST = gql`
+  query ($id: ID!) {
+    list: queAnsByList(id: $id) {
+      user {
+        username
+      }
+      marks
+    }
+  }
+`;
+
 export const ANS_LIST = gql`
   query {
     ansList {
+      id
       question {
         user {
           username

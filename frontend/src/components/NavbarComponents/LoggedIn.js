@@ -31,7 +31,7 @@ const LoggedIn = () => {
               <>
                 <li>
                   <Link className='dropdown-item text-light' to='/post'>
-                    Post Questions
+                    Post Question
                   </Link>
                 </li>
                 <li>

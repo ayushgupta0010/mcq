@@ -32,7 +32,7 @@ const UnverifiedUsers = () => {
   useEffect(() => {
     if (!isLoggedIn) history.push("/login");
     else if (isVerified === false) history.push("/account-unverified");
-    else if (role !== "TEACHER") history.push("/forbidden");
+    else if (role && role !== "TEACHER") history.push("/forbidden");
     else {
       document.title = "Unverified Users";
       client
