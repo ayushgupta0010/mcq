@@ -24,8 +24,7 @@ const Home = () => {
       document.title = "Home";
       client
         .query({ query: QUE_LIST_FOR_USER })
-        .then((response) => setQuestionsList(response.data.queListForUser))
-        .catch((error) => error);
+        .then((response) => setQuestionsList(response.data.queListForUser));
     }
   }, [history, isLoggedIn, isVerified, username]);
 

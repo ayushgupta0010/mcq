@@ -20,14 +20,12 @@ const UnverifiedUsers = () => {
   const handleVerify = (username) =>
     client
       .mutate({ mutation: VERIFY_USER, variables: { username } })
-      .then((response) => removeUser(username))
-      .catch((error) => error);
+      .then((response) => removeUser(username));
 
   const handleUnverify = (username) =>
     client
       .mutate({ mutation: UNVERIFY_USER, variables: { username } })
-      .then((response) => removeUser(username))
-      .catch((error) => error);
+      .then((response) => removeUser(username));
 
   useEffect(() => {
     if (!isLoggedIn) history.push("/login");
@@ -37,34 +35,34 @@ const UnverifiedUsers = () => {
       document.title = "Unverified Users";
       client
         .query({ query: UNVERIFIED_USERS_LIST })
-        .then((response) => setUsersList(response.data.list))
-        .catch((error) => error);
+        .then((response) => setUsersList(response.data.list));
     }
   }, [history, isLoggedIn, isVerified, role]);
 
   return (
     <div className='container my-3'>
       <ul className='list-group'>
-        {usersList.map((user, i) => (
-          <li
-            className='list-group-item d-flex justify-content-between align-items-center bg-black'
-            key={i}>
-            <span className='text-light'>{user.username}</span>
-            <div className='d-flex'>
-              <button
-                className='btn btn-success me-2'
-                onClick={() => handleVerify(user.username)}>
-                <i className='bi bi-person-check-fill' />
-              </button>
-              <button
-                className='btn btn-danger'
-                onClick={() => handleUnverify(user.username)}>
-                <i className='bi bi-person-x-fill' />
-              </button>
-            </div>
-          </li>
-        ))}
-        {usersList.length === 0 && (
+        {usersList.length !== 0 ? (
+          usersList.map((user, i) => (
+            <li
+              className='list-group-item d-flex justify-content-between align-items-center bg-black'
+              key={i}>
+              <span className='text-light'>{user.username}</span>
+              <div className='d-flex'>
+                <button
+                  className='btn btn-success me-2'
+                  onClick={() => handleVerify(user.username)}>
+                  <i className='bi bi-person-check-fill' />
+                </button>
+                <button
+                  className='btn btn-danger'
+                  onClick={() => handleUnverify(user.username)}>
+                  <i className='bi bi-person-x-fill' />
+                </button>
+              </div>
+            </li>
+          ))
+        ) : (
           <div className='text-center mt-5'>
             <span className='text-light fs-4'>No unverified users</span>
           </div>

@@ -37,7 +37,7 @@ const MyQuestions = () => {
         ))
       ) : (
         <div className='text-center mt-5'>
-          <p className='text-light'>No questions uploaded</p>
+          <p className='text-light'>You haven't asked any questions</p>
         </div>
       )}
     </div>

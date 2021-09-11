@@ -21,8 +21,7 @@ const MyAnswers = () => {
       document.title = "My Answers";
       client
         .query({ query: ANS_LIST })
-        .then((response) => setAnswersList(response.data.ansList))
-        .catch((error) => error);
+        .then((response) => setAnswersList(response.data.ansList));
     }
   }, [history, isLoggedIn, isVerified, username]);
 
@@ -36,7 +35,7 @@ const MyAnswers = () => {
         ))
       ) : (
         <div className='text-center mt-5'>
-          <p className='text-light'>You haven't answered any question</p>
+          <p className='text-light'>You haven't answered any questions</p>
         </div>
       )}
     </div>
