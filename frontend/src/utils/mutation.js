@@ -30,7 +30,7 @@ export const SIGNUP = gql`
   }
 `;
 
-export const REFRESH_TOKEN = gql`
+export const REFRESH_TOKEN = `
   mutation RefreshToken($refreshToken: String!) {
     getToken: refreshToken(refreshToken: $refreshToken) {
       token

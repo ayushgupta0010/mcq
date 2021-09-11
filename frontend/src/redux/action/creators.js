@@ -1,35 +1,14 @@
 import * as actionStates from "./states";
 import { GET_USER_DETAIL } from "../../utils/query";
-import { LOGIN, REFRESH_TOKEN, SIGNUP } from "../../utils/mutation";
+import { LOGIN, SIGNUP } from "../../utils/mutation";
 import client from "../../utils/apollo";
 
 export const getUserDetail = () => (dispatch) => {
   client
     .query({ query: GET_USER_DETAIL })
-    .then((response) => {
-      if (response.data.user) {
-        dispatch(actionStates.updateUserDetails(response.data.user));
-      } else {
-        client
-          .mutate({
-            mutation: REFRESH_TOKEN,
-            variables: { refreshToken: localStorage.getItem("refreshToken") },
-          })
-          .then((response) => {
-            if (response.data.getToken) {
-              localStorage.setItem("token", response.data.getToken.token);
-              localStorage.setItem(
-                "refreshToken",
-                response.data.getToken.refreshToken
-              );
-              dispatch(actionStates.login(response.data.getToken));
-            } else {
-              tryLogout();
-            }
-          });
-      }
-    })
-    .catch((error) => console.log(error));
+    .then((response) =>
+      dispatch(actionStates.updateUserDetails(response.data.user))
+    );
 };
 
 export const tryLogin = (username, password) => async (dispatch) => {
@@ -42,8 +21,7 @@ export const tryLogin = (username, password) => async (dispatch) => {
         dispatch(actionStates.login(response.data.user));
       }
       return response;
-    })
-    .catch((error) => console.log(error));
+    });
 };
 
 export const trySignup = (username, password, role) => async (dispatch) => {
@@ -64,8 +42,7 @@ export const trySignup = (username, password, role) => async (dispatch) => {
         dispatch(actionStates.login(response.data.signup));
       }
       return response.data.signup.errors;
-    })
-    .catch((error) => console.log(error));
+    });
 };
 
 export const tryLogout = () => (dispatch) => {
