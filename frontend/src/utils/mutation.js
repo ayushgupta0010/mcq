@@ -64,10 +64,10 @@ export const CREATE_QUESTION = gql`
     $user: String!
     $question: String!
     $question_type: String!
-    $mcqOptionA: String!
-    $mcqOptionB: String!
-    $mcqOptionC: String!
-    $mcqOptionD: String!
+    $mcqOptionA: String
+    $mcqOptionB: String
+    $mcqOptionC: String
+    $mcqOptionD: String
     $correct_answer: String!
   ) {
     createQue(
