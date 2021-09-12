@@ -41,6 +41,19 @@ const UnverifiedUsers = () => {
 
   return (
     <div className='container my-3'>
+      <div
+        className='alert alert-dark alert-dismissible fade show'
+        role='alert'>
+        <p className='styledFont text-center m-0'>
+          If you know a user, you may verify them
+        </p>
+        <button
+          type='button'
+          className='btn-close'
+          data-bs-dismiss='alert'
+          aria-label='Close'
+        />
+      </div>
       <ul className='list-group'>
         {usersList.length !== 0 ? (
           usersList.map((user, i) => (
@@ -63,7 +76,7 @@ const UnverifiedUsers = () => {
             </li>
           ))
         ) : (
-          <div className='text-center mt-5'>
+          <div className='text-center'>
             <span className='text-light fs-4'>No unverified users</span>
           </div>
         )}

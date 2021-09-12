@@ -23,7 +23,7 @@ const Home = () => {
     else {
       document.title = "Home";
       client
-        .query({ query: QUE_LIST_FOR_USER })
+        .query({ query: QUE_LIST_FOR_USER, fetchPolicy: "network-only" })
         .then((response) => setQuestionsList(response.data.queListForUser));
     }
   }, [history, isLoggedIn, isVerified, username]);
@@ -39,7 +39,7 @@ const Home = () => {
                 {x.user.username}
               </span>
             </div>
-
+            <hr className='bg-light mt-0' />
             <div className='container'>
               <p className='text-justify text-light'>{x.question}</p>
 

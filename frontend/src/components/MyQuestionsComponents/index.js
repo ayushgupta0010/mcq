@@ -21,9 +21,8 @@ const MyQuestions = () => {
     else {
       document.title = "My Questions";
       client
-        .query({ query: QUE_LIST_BY_USER })
-        .then((response) => setQuestionsList(response.data.queListByUser))
-        .catch((error) => error);
+        .query({ query: QUE_LIST_BY_USER, fetchPolicy: "network-only" })
+        .then((response) => setQuestionsList(response.data.queListByUser));
     }
   }, [history, isLoggedIn, isVerified, role, username]);
 

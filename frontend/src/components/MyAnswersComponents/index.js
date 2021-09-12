@@ -20,7 +20,7 @@ const MyAnswers = () => {
     else {
       document.title = "My Answers";
       client
-        .query({ query: ANS_LIST })
+        .query({ query: ANS_LIST, fetchPolicy: "network-only" })
         .then((response) => setAnswersList(response.data.ansList));
     }
   }, [history, isLoggedIn, isVerified, username]);
