@@ -3,11 +3,12 @@ import { setContext } from "@apollo/client/link/context";
 import { login } from "../redux/action/states";
 import { tryLogout } from "../redux/action/creators";
 import { REFRESH_AND_REVOKE_TOKEN } from "./mutation";
+import { GRAPHQL_URL } from "./urls";
 import store from "../redux/store";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const uri = "http://127.0.0.1:8000/graphql/";
+const uri = GRAPHQL_URL;
 
 const httpLink = new HttpLink({ uri });
 
