@@ -11,7 +11,7 @@ const Navbar = () => {
     <nav className='navbar navbar-dark navbar-expand-lg bg-dark'>
       <div className='container'>
         <Link to='/' className='navbar-brand styledFont text-success'>
-          MCQ
+          Grammar Quiz
         </Link>
         {isLoggedIn ? <LoggedIn /> : <LoggedOut />}
       </div>
