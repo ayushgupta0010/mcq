@@ -1,1 +1,1 @@
-export const GRAPHQL_URL = "http://127.0.0.1:8000/graphql/";
+export const GRAPHQL_URL = process.env.REACT_APP_GRAPHQL_URL;
